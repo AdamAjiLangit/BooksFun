@@ -1,0 +1,378 @@
+*::before,
+*::after,
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  text-decoration: none;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --text-color: #302e29;
+  --main-color: #8571F6;
+  --second-color: #858585;
+  --bg-color: #fffbf6;
+  --orange-color: #ED553B;
+  --big-font: 4.5rem;
+  --h2-font: 2.6rem;
+  --p-font: 1.1rem;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper .container {
+  width: 1024px;
+  border-radius: 8px;
+  margin: 16px;
+  background: #F8F9FA;
+  padding: 16px;
+  flex-grow: 1;
+  height: fit-content;
+}
+
+.item {
+  border-radius: 16px;
+  margin-top: 16px;
+  padding: 12px 24px 12px 24px;
+  background: white;
+  display: flex;
+  align-items: center;
+}
+
+.item > .inner h2 {
+  margin-bottom: unset;
+}
+
+.item > .inner p {
+  margin-top: 5px;
+}
+
+.form {
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  height: 300px;
+  border-radius: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  margin-bottom: 4px;
+  font-size: 18px;
+}
+
+.shadow {
+  box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
+}
+
+input[type=text], input[type=date] {
+  font-family: Raleway, sans-serif;
+  background: #F5F1FF;
+  border: 2px solid #9475EA;
+  border-radius: 8px;
+  padding: 16px;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.text-center {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-title {
+  margin: auto 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* SwiperImages */
+.swiper {
+  width: 300px;
+  height: auto;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 18px;
+  /* box-shadow: 5px 1px 5px var(--text-color); */
+}
+
+.swiper-slide img:hover {
+  cursor: pointer;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  /* box-shadow: 5px 15px 5px var(--text-color); */
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  padding: 23px 15%;
+  transition: all 0.38s ease;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+span {
+  color: var(--main-color);
+}
+
+.navbar {
+  display: flex;
+}
+
+.navbar a {
+  color: var(--text-color);
+  font-size: var(--p-font);
+  font-weight: 600;
+  padding: 5px 10px;
+  margin: 2px 25px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.38s ease;
+}
+
+.navbar a:hover {
+  border-bottom: 2px solid var(--main-color);
+  color: var(--main-color);
+}
+
+.h-icons {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  background: var(--main-color);
+  border-radius: 5rem;
+}
+
+.h-icons i {
+  font-size: 22px;
+  color: var(--bg-color);
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+#menu-icon {
+  font-size: 32px;
+  color: var(--bg-color);
+  z-index: 10001;
+  cursor: pointer;
+  display: none;
+}
+
+section {
+  padding: 90px 15% 80px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 26px;
+  background: var(--main-color);
+  color: var(--bg-color);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5rem;
+  transition: all .20s ease;
+}
+
+.btn:hover {
+  color: var(--bg-color);
+  background: var(--text-color);
+}
+
+header.sticky {
+  padding: 10px 15%;
+  background: var(--bg-color);
+  box-shadow: 0px 4px 15px rgb(0 0 0 / 8%);
+}
+
+.container {
+  margin-top: 50px;
+  text-align: center;
+}
+
+/* Home Section */
+.home {
+  top: 100px;
+  height: 70vh;
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: 2rem;
+}
+
+.home-img img {
+  width: 100%;
+  height: auto;
+}
+
+.home-text h1 {
+  font-size: var(--big-font);
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.home-text p {
+  font-size: var(--p-font);
+  font-weight: 500;
+  color: var(--second-color);
+  line-height: 32px;
+  margin-bottom: 2.3rem;
+}
+
+header.sticky {
+  padding: 10px 15%;
+  background: var(--bg-color);
+  box-shadow: 0px 4px 15px rgb(0 0 0 / 8%);
+}
+
+/* Content Section */
+
+.main-text h2 {
+  font-size: var(--h2-font);
+}
+
+.main-text p {
+  font-size: var(--p-font);
+  font-weight: 500;
+  color: var(--second-color);
+  line-height: 32px;
+  height: 10vh;
+}
+
+.container-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+  gap: 2rem;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+/* SwiperDetail */
+
+.swiperDetail {
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  padding: 0 0 20px 0;
+}
+
+.swiperDetail h4 {
+  color: var(--orange-color);
+}
+
+.scroll-top {
+	position: fixed;
+	bottom: 2.2rem;
+	right: 2.2rem;
+}
+
+.scroll-top i {
+	padding: 8px;
+	font-size: 1.4rem;
+	color: #fff;
+	background: var(--main-color);
+	border-radius: 5rem;
+}
+
+.check-button {
+  background: url('../assets/check-outline.svg');
+  background-size: contain;
+  color: var(--main-color);
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  cursor: pointer;
+  border: none;
+}
+
+.check-button:hover {
+  background: url('../assets/native/check-solid1.svg');
+  background-size: contain;
+}
+
+.trash-button {
+  background: url('../assets/trash-outline.svg');
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  margin-left: 16px;
+  cursor: pointer;
+  border: none;
+}
+
+.trash-button:hover {
+  background: url('../assets/native/trash-fill2.svg');
+  background-size: contain;
+}
+
+.undo-button {
+  background: url('../assets/undo-ouline.svg');
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  cursor: pointer;
+  border: none;
+}
+
+.undo-button:hover {
+  background: url('../assets/native/undo-ouline1.svg');
+  background-size: contain;
+}
+
+.check-button:focus, .trash-button {
+  outline: none;
+}
