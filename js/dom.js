@@ -14,7 +14,7 @@ function makeBook(data /* object */, timestamp /* string */, isFinished /* boole
 
     const bookImage = document.createElement('img');
     bookImage.src = image || '/assets/images/books/book5.png';
-    bookImage.style.width = '300px';
+    bookImage.style.width = '200px';
     bookImage.style.height = 'auto';
     imageContainer.appendChild(bookImage);
 
