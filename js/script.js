@@ -27,7 +27,6 @@ document.addEventListener('ondataloaded', () => {
 var swiperimages = new Swiper(".mySwiperImages", {
     effect: "cards",
     grabCursor: true,
-    loop: true,
 });
 
 var swiperdetail = new Swiper(".mySwiperDetail", {
