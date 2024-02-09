@@ -1,13 +1,16 @@
-const UNFINISHED_LIST_BOOKS_ID = 'books';
-const FINISHED_LIST_BOOKS_ID = 'finished-books';
+const UNCOMPLETE_LIST_BOOKS_ID = 'books';
+const COMPLETE_LIST_BOOKS_ID = 'finished-books';
 const BOOKS_ITEMID = 'itemId';
 
-function makeBook(data /* object */, timestamp /* string */, isFinished /* boolean */, image /* string */) {
+function makeBook(title /* string */, author /* string */, year, image, isComplete /* boolean */) {
     const textTitle = document.createElement('h2');
-    textTitle.innerText = data;
+    textTitle.innerText = title;
 
-    const textTimestamp = document.createElement('p');
-    textTimestamp.innerText = timestamp;
+    const textAuthor = document.createElement('h3');
+    textAuthor.innerText = author;
+
+    const numberYear = document.createElement('h4');
+    numberYear.innerText = year;
 
     const imageContainer = document.createElement('div');
     imageContainer.classList.add('image-container');
@@ -20,13 +23,13 @@ function makeBook(data /* object */, timestamp /* string */, isFinished /* boole
 
     const textContainer = document.createElement('div');
     textContainer.classList.add('inner');
-    textContainer.append(textTitle, textTimestamp);
+    textContainer.append(textTitle, textAuthor, numberYear);
 
     const container = document.createElement('div');
     container.classList.add('item', 'shadow');
     container.append(imageContainer, textContainer);
 
-    if (isFinished) {
+    if (isComplete) {
         container.append(createUndoButton(), createTrashButton());
     } else {
         container.append(createCheckButton());
@@ -64,13 +67,14 @@ function createButton(buttonTypeClass /* string */, eventListener /* event */) {
 }
 
 function addBook() {
-    const unreadBookList = document.getElementById(UNFINISHED_LIST_BOOKS_ID);
+    const unreadBookList = document.getElementById(UNCOMPLETE_LIST_BOOKS_ID);
     const textTitle = document.getElementById('title').value;
-    const textTimestamp = document.getElementById('date').value;
+    const textAuthor = document.getElementById('author').value;
+    const numberYear = document.getElementById('year').value;
     const image = '/assets/images/books/book5.png';
 
-    const book = makeBook(textTitle, textTimestamp, false, image);
-    const bookObject = composeBookObject(textTitle, textTimestamp, false);
+    const book = makeBook(textTitle, textAuthor, numberYear, false, image);
+    const bookObject = composeBookObject(textTitle, textAuthor, numberYear, false);
 
     book[BOOKS_ITEMID] = bookObject.id;
     books.push(bookObject);
@@ -80,13 +84,15 @@ function addBook() {
 }
 
 function addBookToCompleted(bookElement /* HTMLelement */) {
-    const listCompleted = document.getElementById(FINISHED_LIST_BOOKS_ID);
+    const listCompleted = document.getElementById(COMPLETE_LIST_BOOKS_ID);
     const bookTitle = bookElement.querySelector('.inner > h2').innerText;
-    const bookTimestamp = bookElement.querySelector('.inner > p').innerText;
+    const bookAuthor = bookElement.querySelector('.inner > h3').innerText;
+    const bookYear = bookElement.querySelector('.inner > h4').innerText;
+    const image = bookElement.querySelector('.image-container > img').src;
 
-    const newBook = makeBook(bookTitle, bookTimestamp, true);
+    const newBook = makeBook(bookTitle, bookAuthor, bookYear, image, true);
     const book = findBook(bookElement[BOOKS_ITEMID]);
-    book.isFinished = true;
+    book.isComplete = true;
     newBook[BOOKS_ITEMID] = book.id;
 
     listCompleted.append(newBook);
@@ -104,34 +110,36 @@ function removeBookFromCompleted(bookElement /* HTMLelement */) {
 }
 
 function undoBookFromCompleted(bookElement /* HTMLelement */) {
-    const listUnfinished = document.getElementById(UNFINISHED_LIST_BOOKS_ID);
+    const listUncomplete = document.getElementById(UNCOMPLETE_LIST_BOOKS_ID);
     const bookTitle = bookElement.querySelector('.inner > h2').innerText;
-    const bookTimestamp = bookElement.querySelector('.inner > p').innerText;
+    const bookAuthor = bookElement.querySelector('.inner > h3').innerText;
+    const bookYear = bookElement.querySelector('.inner > h4').innerText;
+    const image = bookElement.querySelector('.image-container > img').src;
 
-    const newBook = makeBook(bookTitle, bookTimestamp, false);
+    const newBook = makeBook(bookTitle, bookAuthor, bookYear, false);
 
     const book = findBook(bookElement[BOOKS_ITEMID]);
-    book.isFinished = false;
+    book.isComplete = false;
     newBook[BOOKS_ITEMID] = book.id;
 
-    listUnfinished.append(newBook);
+    listUncomplete.append(newBook);
     bookElement.remove();
 
     updateDataToStorage();
 }
 
 function refreshDataFromBooks() {
-    const listUnfinished = document.getElementById(UNFINISHED_LIST_BOOKS_ID);
-    let listFinished = document.getElementById(FINISHED_LIST_BOOKS_ID);
+    const listUncomplete = document.getElementById(UNCOMPLETE_LIST_BOOKS_ID);
+    let listComplete = document.getElementById(COMPLETE_LIST_BOOKS_ID);
 
     for (const book of books) {
-        const newBook = makeBook(book.task, book.timeStamp, book.image, book.isFinished);
+        const newBook = makeBook(book.title, book.author, book.year, book.image, book.isComplete);
         newBook[BOOKS_ITEMID] = book.id;
 
-        if (book.isFinished) {
-            listFinished.append(newBook);
+        if (book.isComplete) {
+            listComplete.append(newBook);
         } else {
-            listUnfinished.append(newBook);
+            listUncomplete.append(newBook);
         }
     }
 }

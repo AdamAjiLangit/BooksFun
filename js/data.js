@@ -30,13 +30,14 @@ function updateDataToStorage() {
     if (isStorageExist()) saveData();
 }
 
-function composeBookObject(task, timeStamp, isFinished, image) {
+function composeBookObject(title, author, year, image, isComplete) {
     return {
         id: +new Date(),
-        task,
-        timeStamp,
-        isFinished,
-        image
+        title,
+        author,
+        year,
+        image,
+        isComplete,
     };
 }
 
