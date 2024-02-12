@@ -2,7 +2,7 @@ const UNCOMPLETE_LIST_BOOKS_ID = 'books';
 const COMPLETE_LIST_BOOKS_ID = 'finished-books';
 const BOOKS_ITEMID = 'itemId';
 
-function makeBook(title /* string */, author /* string */, year, image, isComplete /* boolean */) {
+function makeBook(title /* string */, author /* string */, year /* number */, image /* string */, isComplete /* boolean */) {
     const textTitle = document.createElement('h2');
     textTitle.innerText = title;
 
@@ -32,7 +32,7 @@ function makeBook(title /* string */, author /* string */, year, image, isComple
     if (isComplete) {
         container.append(createUndoButton(), createTrashButton());
     } else {
-        container.append(createCheckButton());
+        container.append(createCheckButton(), createTrashButton());
     }
 
     return container;
@@ -70,17 +70,23 @@ function addBook() {
     const unreadBookList = document.getElementById(UNCOMPLETE_LIST_BOOKS_ID);
     const textTitle = document.getElementById('title').value;
     const textAuthor = document.getElementById('author').value;
-    const numberYear = document.getElementById('year').value;
+    const textYear = document.getElementById('year').value;
     const image = '/assets/images/books/book5.png';
 
-    const book = makeBook(textTitle, textAuthor, numberYear, false, image);
-    const bookObject = composeBookObject(textTitle, textAuthor, numberYear, false);
+    const numberYear = parseInt(textYear, 10);
+    const checkbox = document.getElementById('checkbox');
+    const isComplete = checkbox.checked;
+    const book = makeBook(textTitle, textAuthor, numberYear, image, isComplete);
+    const bookObject = composeBookObject(textTitle, textAuthor, numberYear, isComplete);
 
     book[BOOKS_ITEMID] = bookObject.id;
     books.push(bookObject);
 
-    unreadBookList.append(book);
-    updateDataToStorage();
+    if (isComplete) {
+        addBookToCompleted(book);  // Add to the completed list immediately if checkbox is checked
+    } else {
+        unreadBookList.append(book);
+    }
 }
 
 function addBookToCompleted(bookElement /* HTMLelement */) {
@@ -114,7 +120,6 @@ function undoBookFromCompleted(bookElement /* HTMLelement */) {
     const bookTitle = bookElement.querySelector('.inner > h2').innerText;
     const bookAuthor = bookElement.querySelector('.inner > h3').innerText;
     const bookYear = bookElement.querySelector('.inner > h4').innerText;
-    const image = bookElement.querySelector('.image-container > img').src;
 
     const newBook = makeBook(bookTitle, bookAuthor, bookYear, false);
 
@@ -133,7 +138,7 @@ function refreshDataFromBooks() {
     let listComplete = document.getElementById(COMPLETE_LIST_BOOKS_ID);
 
     for (const book of books) {
-        const newBook = makeBook(book.title, book.author, book.year, book.image, book.isComplete);
+        const newBook = makeBook(book.title, book.author, book.year, book.isComplete);
         newBook[BOOKS_ITEMID] = book.id;
 
         if (book.isComplete) {
